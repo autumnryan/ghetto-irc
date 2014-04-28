@@ -30,5 +30,25 @@ do
     echo -n "[$CHANNEL]<$UNAME>: "
     read MSG
 
-    echo "["`date +%H:%M`"]<$UNAME> $MSG" >> $SERVER/$CHANNEL
+    DELICIOUS_MSG=( $MSG )
+
+    if [ `echo ${DELICIOUS_MSG[0]} | sed "s/\(.\)\(.*\)/\1/"` = "/" ]
+    then
+	case ${DELICIOUS_MSG[0]} in
+	    "/name")
+		UNAME=${DELICIOUS_MSG[1]}
+		;;
+	    "/join")
+		CHANNEL=${DELICIOUS_MSG[1]}
+		;;
+	    "/server")
+		SERVER=${DELICIOUS_MSG[1]}
+		;;
+	    "/quit")
+		exit 1
+		;;
+	esac
+    else
+	echo "["`date +%H:%M`"]<$UNAME> $MSG" >> $SERVER/$CHANNEL
+    fi
 done
