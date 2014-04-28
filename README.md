@@ -25,3 +25,5 @@ dog
 dong
 random
 turtle
+
+Any other mode counts as no mode.
